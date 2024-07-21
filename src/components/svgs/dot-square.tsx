@@ -9,7 +9,7 @@ const DotSquare = ({ className = "" }: Props) => {
       width="1rem"
       height="1rem"
       viewBox="0 0 24 24"
-      fill="none"
+      fill="currentColor"
       stroke="currentColor"
       strokeWidth="1.5"
       strokeLinecap="round"

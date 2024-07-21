@@ -2,6 +2,7 @@ import { ComponentType, ReactElement, ReactNode } from "react";
 import IconNote from "@/components/svgs/note";
 import IconAnalytic from "@/components/svgs/analytic";
 import IconDotSquare from "@/components/svgs/dot-square";
+import IconImage from "@/components/svgs/image";
 
 export type MenuItem = {
   // icon?: ({ className }: { className?: string }) => JSX.Element;
@@ -27,9 +28,14 @@ export const MENUS: Menu[] = [
         href: "/dashboard",
       },
       {
+        icon: <IconImage />,
+        text: "Media Library",
+        href: "/dashboard/image",
+      },
+      {
         icon: <IconNote />,
         text: "Article",
-        href: "/dashboard/article",
+        href: "#",
         children: [
           {
             icon: <IconDotSquare />,
@@ -43,55 +49,55 @@ export const MENUS: Menu[] = [
           },
         ],
       },
-      {
-        icon: <IconAnalytic />,
-        text: "eCommerce",
-        href: "/dashboard/test",
-      },
-      {
-        icon: <IconAnalytic />,
-        text: "Marketing",
-        href: "/dashboard/test",
-        children: [
-          {
-            icon: <IconAnalytic />,
-            text: "Google Ads",
-            href: "/dashboard/article",
-          },
-          {
-            icon: <IconAnalytic />,
-            text: "Facebook Ads",
-            href: "/dashboard/article",
-          },
-        ],
-      },
+      // {
+      //   icon: <IconAnalytic />,
+      //   text: "eCommerce",
+      //   href: "/dashboard/test",
+      // },
+      // {
+      //   icon: <IconAnalytic />,
+      //   text: "Marketing",
+      //   href: "/dashboard/test1",
+      //   children: [
+      //     {
+      //       icon: <IconAnalytic />,
+      //       text: "Google Ads",
+      //       href: "/dashboard/test11",
+      //     },
+      //     {
+      //       icon: <IconAnalytic />,
+      //       text: "Facebook Ads",
+      //       href: "/dashboard/test12",
+      //     },
+      //   ],
+      // },
     ],
   },
-  {
-    header: "APPS",
-    items: [
-      {
-        icon: <IconAnalytic />,
-        text: "Contact",
-        href: "/dashboard/article",
-      },
-      {
-        icon: <IconAnalytic />,
-        text: "Blog",
-        href: "/dashboard/article",
-        children: [
-          {
-            icon: <IconAnalytic />,
-            text: "Posts",
-            href: "/dashboard/article",
-          },
-          {
-            icon: <IconAnalytic />,
-            text: "Detail",
-            href: "/dashboard/article",
-          },
-        ],
-      },
-    ],
-  },
+  // {
+  //   header: "APPS",
+  //   items: [
+  //     {
+  //       icon: <IconAnalytic />,
+  //       text: "Contact",
+  //       href: "/dashboard/contact",
+  //     },
+  //     {
+  //       icon: <IconAnalytic />,
+  //       text: "Blog",
+  //       href: "#",
+  //       children: [
+  //         {
+  //           icon: <IconAnalytic />,
+  //           text: "Posts",
+  //           href: "/dashboard/test21",
+  //         },
+  //         {
+  //           icon: <IconAnalytic />,
+  //           text: "Detail",
+  //           href: "/dashboard/test22",
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
 ];

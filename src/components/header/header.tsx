@@ -11,7 +11,7 @@ const Header = ({ className = "" }: Props) => {
       className={clsx(
         "flex flex-row items-center justify-start",
         className,
-        "h-16 w-full bg-brand-200 p-4"
+        "h-16 w-full bg-brand-200 px-4"
       )}
     >
       <button type="button" className="p-1 border border-transparent">

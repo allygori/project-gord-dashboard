@@ -1,16 +1,10 @@
 "use client";
 
 import clsx from "clsx";
-import {
-  Children,
-  createElement,
-  cloneElement,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import type { MenuItem } from "./menus.constant";
+import { Children, cloneElement, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import type { MenuItem } from "./menus.constant";
 import IconChevronDown from "@/components/svgs/chevron-down-1";
 
 type Props = {
@@ -18,15 +12,24 @@ type Props = {
 };
 
 const MenuItem = ({ item = {} }: Props) => {
+  const pathname = usePathname();
   const childRef = useRef<HTMLUListElement | null>(null);
   const [open, setOpen] = useState(false);
-  // const ParentIcon = item.icon;
   const ParentIcon: React.ReactElement | undefined = Children.only(item.icon);
   const childrenLength = (item.children || []).length;
-  // const ParentIcon = item.icon;
 
   const toggleOpen = () => {
     setOpen((prev) => !prev);
+  };
+  console.log("pathname", pathname);
+
+  const isActive = (item: any) => {
+    console.log("item", item);
+    if (item.href === pathname) return true;
+    if (item.children) {
+      return item.children.some((child: any) => isActive(child));
+    }
+    return false;
   };
 
   useEffect(() => {
@@ -37,40 +40,37 @@ const MenuItem = ({ item = {} }: Props) => {
     }
   }, [open]);
 
-  // const children = Children.toArray(ParentIcon);
-  // const child: React.ReactElement | undefined = Children.only(ParentIcon);
-
   return (
     <li className="w-full text-sm text-brand-100">
       {item.href && childrenLength === 0 ? (
         <Link
           href={item.href}
-          className="flex flex-row justify-between items-center hover:bg-brand-200 hover:rounded-lg hover:overflow-hidden pl-2 pr-4 py-3 w-full"
+          className={clsx(
+            "flex flex-row justify-between items-center pl-2 pr-4 py-3 w-full mb-2",
+            isActive(item)
+              ? "bg-brand-200 rounded-md overflow-hidden text-brand-95 font-medium"
+              : "hover:bg-slate-100 hover:rounded-lg hover:overflow-hidden "
+          )}
         >
           <div className="flex flex-row">
-            {/* {ParentIcon && <ParentIcon className="mr-2" />} */}
-            {/* {cloneElement(ParentIcon, { className = "" })} */}
-            {/* {createElement(ParentIcon, { className = "" })} */}
-            {/* {cloneElement(item.icon, { className = "" })} */}
-            {/* {ParentIcon} */}
-            {/* {cloneElement(ParentIcon, { className: "mr-4" })} */}
-            {/* {Children.map(children, child => {
-              // return cloneElement(child, )
-              return cloneElement(child,  { className: "mr-4" })
-            })} */}
-            {ParentIcon && cloneElement(ParentIcon, { className: "mr-2" })}
+            {ParentIcon &&
+              cloneElement(ParentIcon, { className: "mr-2 text-brand-95" })}
             <span>{item.text}</span>
           </div>
         </Link>
       ) : (
         <div
           onClick={toggleOpen}
-          className="flex flex-row justify-between items-center hover:bg-brand-200 hover:rounded-lg hover:overflow-hidden pl-2 pr-4 py-3 w-full cursor-pointer"
+          className={clsx(
+            "flex flex-row justify-between items-center pl-2 pr-4 py-3 w-full cursor-pointer",
+            isActive(item)
+              ? "bg-brand-200 rounded-md overflow-hidden text-brand-95 font-medium"
+              : "hover:bg-slate-100 hover:rounded-lg hover:overflow-hidden"
+          )}
         >
           <div className="flex flex-row">
-            {/* {ParentIcon && <ParentIcon className="mr-2" />} */}
-            {/* {ParentIcon} */}
-            {ParentIcon && cloneElement(ParentIcon, { className: "mr-2" })}
+            {ParentIcon &&
+              cloneElement(ParentIcon, { className: "mr-2 text-brand-95" })}
             <span>{item.text}</span>
           </div>
           <IconChevronDown
@@ -92,7 +92,6 @@ const MenuItem = ({ item = {} }: Props) => {
         )}
       >
         {(item?.children || []).map((child, idx) => {
-          // const ChildIcon = child.icon;
           const ChildIcon: React.ReactElement | undefined = Children.only(
             child.icon
           );
@@ -105,18 +104,34 @@ const MenuItem = ({ item = {} }: Props) => {
               {child.href ? (
                 <Link
                   href={child.href}
-                  className="flex flex-row pl-6 pr-4 py-3 hover:bg-brand-200 hover:rounded-lg hover:overflow-hidden w-full"
+                  className={clsx(
+                    "flex flex-row pl-6 pr-4 py-3 hover:text-brand-95 hover:text-opacity-80 w-full",
+                    isActive(child) ? "text-brand-95 font-medium" : ""
+                  )}
                 >
-                  {/* {ChildIcon && <ChildIcon className="mr-2" />} */}
-                  {/* {ChildIcon} */}
-                  {ChildIcon && cloneElement(ChildIcon, { className: "mr-2" })}
+                  {ChildIcon &&
+                    cloneElement(ChildIcon, {
+                      className: clsx(
+                        "mr-2 text-brand-95",
+                        isActive(child) ? "fill-brand-95" : "fill-transparent"
+                      ),
+                    })}
                   <span>{child.text}</span>
                 </Link>
               ) : (
-                <div className="flex flex-row p-2 hover:bg-brand-200 hover:rounded-lg hover:overflow-hidden w-full">
-                  {/* {ChildIcon && <ChildIcon className="mr-2" />} */}
-                  {/* {ChildIcon} */}
-                  {ChildIcon && cloneElement(ChildIcon, { className: "mr-2" })}
+                <div
+                  className={clsx(
+                    "flex flex-row p-2 hover:text-brand-95 hover:text-opacity-80 w-full",
+                    isActive(child) ? "text-brand-95 font-medium" : ""
+                  )}
+                >
+                  {ChildIcon &&
+                    cloneElement(ChildIcon, {
+                      className: clsx(
+                        "mr-2 text-brand-95",
+                        isActive(child) ? "fill-brand-95" : "fill-transparent"
+                      ),
+                    })}
                   <span>{child.text}</span>
                 </div>
               )}

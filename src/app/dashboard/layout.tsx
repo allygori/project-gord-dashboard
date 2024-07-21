@@ -5,9 +5,9 @@ const DashboardLayout = ({
   children,
 }: Readonly<{ children: React.ReactNode }>) => {
   return (
-    <main className="flex flex-row w-full">
-      <Sidebar />
-      <section className="w-full">
+    <main className="relative flex flex-row w-full h-full min-h-screen">
+      <Sidebar className="shrink-0" />
+      <section className="w-full grow	flex flex-col">
         <Header />
         <main className="p-8">{children}</main>
       </section>
