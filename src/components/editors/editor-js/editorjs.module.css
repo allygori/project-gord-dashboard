@@ -1,0 +1,19 @@
+/* .wrapper > :global(.ce-block__content) {
+  margin: 0 !important;
+} */
+
+.wrapper #editorjs {
+  margin: 0;
+}
+
+.wrapper
+  #editorjs
+  .codex-editor
+  .codex-editor__redactor
+  .ce-block
+  .ce-block__content {
+  margin: 0 !important;
+}
+/* .ce-block__content {
+  margin: 0 !important;
+} */
